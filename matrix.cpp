@@ -11,7 +11,7 @@ Matrix Matrix::operator+(const Vector &vector)
         std::cout << "Rows and Columns of Matrix and Vector must be Equal(defined) for Matrix addition." << std::endl;
         return Matrix();
     }
-    Matrix result_matrix(number_of_rows_,number_of_column_,0);
+    Matrix result_matrix(number_of_rows_,number_of_column_);
     Matrix vector_to_matrix = ConvertVectorToMatrix(vector);
     for(int row{0}; row < number_of_rows_; ++row)
     {
@@ -30,9 +30,8 @@ Matrix Matrix::operator*(const Vector &vector)
         std::cout << " Matrix column and Vector rows(dimensions) must be equal for Multiplication." << std::endl;
         return Matrix();
     }
-
     Matrix vector_to_matrix = ConvertVectorToMatrix(vector);
-    Matrix result_matrix(number_of_rows_,vector_to_matrix.number_of_column_,0);
+    Matrix result_matrix(number_of_rows_,vector_to_matrix.number_of_column_);
     for(int row{0}; row < number_of_rows_; ++row)
     {
         for(int column{0}; column < vector_to_matrix.number_of_column_; ++column)
@@ -46,9 +45,9 @@ Matrix Matrix::operator*(const Vector &vector)
     return result_matrix;
 }
 
-Matrix Matrix::operator*(const int scalar)
+Matrix Matrix::operator*(const int& scalar)
 {
-    Matrix result_matrix(number_of_rows_, number_of_column_, 0);
+    Matrix result_matrix(number_of_rows_, number_of_column_);
     for(int row{0}; row < number_of_rows_; ++row)
     {
         for(int column{0}; column < number_of_column_; ++column)
@@ -59,12 +58,7 @@ Matrix Matrix::operator*(const int scalar)
     return result_matrix;
 }
 
-int& Matrix::operator()(const int &row, const int &column)
-{
-    return this->matrix_[row][column];
-}
-
-void Matrix::DisplayMatrixData()
+void Matrix::DisplayMatrixElements()
 {
     if(matrix_.empty())
     {
@@ -87,4 +81,9 @@ Matrix Matrix::ConvertVectorToMatrix(const Vector &vector)
 {
     Matrix vector_to_matrix(vector.GetNumberofRows(), 1, vector.GetDefaultValue());
     return vector_to_matrix;
+}
+
+int& Matrix::operator()(const int &row, const int &column)
+{
+    return this->matrix_[row][column];
 }

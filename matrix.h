@@ -5,20 +5,23 @@
 #ifndef ATLATEC_ASSIGNMENT_MATRIX_H
 #define ATLATEC_ASSIGNMENT_MATRIX_H
 
-#include <iostream>
-#include <vector>
 #include "vector.h"
 
 class Matrix
 {
 public:
-    Matrix()
+    Matrix(): matrix_()
     {
-        matrix_;
     }
-    Matrix(int rows, int columns, int default_value):number_of_rows_(rows), number_of_column_(columns)
+    Matrix(int rows, int columns, int default_value)
+        : number_of_rows_(rows), number_of_column_(columns)
     {
         matrix_.resize(number_of_rows_, std::vector<int>(number_of_column_,default_value));
+    }
+    Matrix(int rows, int columns)
+            : number_of_rows_(rows), number_of_column_(columns)
+    {
+        matrix_.resize(number_of_rows_, std::vector<int>(number_of_column_));
     }
     ~Matrix()
     {
@@ -31,9 +34,9 @@ public:
 
     Matrix operator+(const Vector& vector);
     Matrix operator*(const Vector& vector);
-    Matrix operator*(const int scalar);
+    Matrix operator*(const int& scalar);
     int& operator()(const int& row, const int& column);
-    void DisplayMatrixData();
+    void DisplayMatrixElements();
     Matrix ConvertVectorToMatrix(const Vector& vector);
 
 private:
